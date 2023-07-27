@@ -14,6 +14,8 @@ class MyDocument extends Document {
                         href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap"
                         rel="stylesheet"
                     />
+                    <link rel="manifest" href="/manifest.json" />
+                    <meta name="theme-color" content="#0070f3" />
                 </Head>
                 <body className="antialiased">
                     <Main />
