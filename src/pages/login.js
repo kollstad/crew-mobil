@@ -45,6 +45,9 @@ const Login = () => {
         })
     }
 
+    const newLocal =
+        'block mt-4 flex justify-end mt-4 flex flex-col items-center'
+
     return (
         <GuestLayout>
             <AuthCard
@@ -58,8 +61,8 @@ const Login = () => {
 
                 <form onSubmit={submitForm}>
                     {/* Email Address */}
-                    <div>
-                        <Label htmlFor="email">Email</Label>
+                    <div className={newLocal}>
+                        <Label htmlFor="email">E-post</Label>
 
                         <Input
                             id="email"
@@ -75,8 +78,8 @@ const Login = () => {
                     </div>
 
                     {/* Password */}
-                    <div className="mt-4">
-                        <Label htmlFor="password">Password</Label>
+                    <div className="justify-end mt-4 flex flex-col items-center">
+                        <Label htmlFor="password">Passord</Label>
 
                         <Input
                             id="password"
@@ -95,7 +98,7 @@ const Login = () => {
                     </div>
 
                     {/* Remember Me */}
-                    <div className="block mt-4">
+                    <div className={newLocal}>
                         <label
                             htmlFor="remember_me"
                             className="inline-flex items-center">
@@ -115,14 +118,15 @@ const Login = () => {
                         </label>
                     </div>
 
-                    <div className="flex items-center justify-end mt-4">
+                    <div className={newLocal}>
                         <Link
                             href="/forgot-password"
                             className="underline text-sm text-gray-600 hover:text-gray-900">
                             Forgot your password?
                         </Link>
-
-                        <Button className="ml-3">Login</Button>
+                    </div>
+                    <div className={newLocal}>
+                        <Button>Login</Button>
                     </div>
                 </form>
             </AuthCard>

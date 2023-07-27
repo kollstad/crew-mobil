@@ -16,6 +16,7 @@ const Register = () => {
     })
 
     const [name, setName] = useState('')
+    const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
@@ -26,6 +27,7 @@ const Register = () => {
 
         register({
             name,
+            phone,
             email,
             password,
             password_confirmation: passwordConfirmation,
@@ -37,14 +39,12 @@ const Register = () => {
         <GuestLayout>
             <AuthCard
                 logo={
-                    <Link href="/">
-                        <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
-                    </Link>
+                    <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
                 }>
                 <form onSubmit={submitForm}>
                     {/* Name */}
-                    <div>
-                        <Label htmlFor="name">Name</Label>
+                    <div className="flex flex-col items-center">
+                        <Label htmlFor="name">Navn</Label>
 
                         <Input
                             id="name"
@@ -59,9 +59,25 @@ const Register = () => {
                         <InputError messages={errors.name} className="mt-2" />
                     </div>
 
+                    {/* Phone Number */}
+                    <div className="mt-4 flex flex-col items-center">
+                        <Label htmlFor="mobile">Telefonnummer</Label>
+
+                        <Input
+                            id="mobile"
+                            type="tel"
+                            value={phone}
+                            className="block mt-1 w-full"
+                            onChange={event => setPhone(event.target.value)}
+                            required
+                        />
+
+                        <InputError messages={errors.email} className="mt-2" />
+                    </div>
+
                     {/* Email Address */}
-                    <div className="mt-4">
-                        <Label htmlFor="email">Email</Label>
+                    <div className="mt-4 flex flex-col items-center">
+                        <Label htmlFor="email">E-post</Label>
 
                         <Input
                             id="email"
@@ -76,8 +92,8 @@ const Register = () => {
                     </div>
 
                     {/* Password */}
-                    <div className="mt-4">
-                        <Label htmlFor="password">Password</Label>
+                    <div className="mt-4 flex flex-col items-center">
+                        <Label htmlFor="password">Passord</Label>
 
                         <Input
                             id="password"
@@ -96,9 +112,9 @@ const Register = () => {
                     </div>
 
                     {/* Confirm Password */}
-                    <div className="mt-4">
+                    <div className="mt-4 flex flex-col items-center">
                         <Label htmlFor="passwordConfirmation">
-                            Confirm Password
+                            Bekreft passord
                         </Label>
 
                         <Input
@@ -118,14 +134,14 @@ const Register = () => {
                         />
                     </div>
 
-                    <div className="flex items-center justify-end mt-4">
+                    <div className="flex items-center justify-end mt-4 flex flex-col items-center">
                         <Link
                             href="/login"
                             className="underline text-sm text-gray-600 hover:text-gray-900">
                             Already registered?
                         </Link>
 
-                        <Button className="ml-4">Register</Button>
+                        <Button className="ml-4">Registrer</Button>
                     </div>
                 </form>
             </AuthCard>
