@@ -5,6 +5,7 @@ export default function DashboardLayout({
     // This will be populated with nested layouts or pages
     children,
 }) {
+    
     return (
         <html lang="en">
             <body className="min-h-screen bg-gray-100">
