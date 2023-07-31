@@ -1,16 +1,34 @@
-import Head from 'next/head'
+'use client'
+import { useAuth } from './components/hooks/auth'
+import { useEffect } from 'react'
 import Link from 'next/link'
-import { useAuth } from '@/hooks/auth'
 
-export default function Home() {
+// This is a Client Component. It receives data as props and
+// has access to state and effects just like Page components
+// in the `pages` directory.
+export default function HomePage() {
     const { user } = useAuth({ middleware: 'guest' })
+
+    useEffect(() => {
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker
+                    .register('/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registered:', registration)
+                    })
+                    .catch(error => {
+                        console.error(
+                            'Service Worker registration failed:',
+                            error,
+                        )
+                    })
+            })
+        }
+    }, [])
 
     return (
         <>
-            <Head>
-                <title>Laravel</title>
-            </Head>
-
             <div className="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
                 <div className="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     {user ? (
