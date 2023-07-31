@@ -5,7 +5,7 @@ import useSWR from 'swr'
 export default function ProjectPage() {
     const fetcher = (...args) => fetch(...args).then(res => res.json())
     const { data, error, isLoading } = useSWR(
-        'http://127.0.0.1:8000/api/projects',
+        process.env.NEXT_PUBLIC_BACKEND_URL + '/api/projects',
         fetcher,
     )
 
