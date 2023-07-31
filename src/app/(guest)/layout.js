@@ -1,5 +1,3 @@
-
-
 const GuestLayout = ({ children }) => {
     return (
         <div>

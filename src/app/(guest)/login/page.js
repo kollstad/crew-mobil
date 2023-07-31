@@ -9,11 +9,11 @@ import InputError from '@/app/components/breeze-next/InputError'
 import Label from '@/app/components/breeze-next/Label'
 import Link from 'next/link'
 import { useAuth } from '@/app/components/hooks/auth'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+// import { useRouter } from 'next/navigation'
 
 const Login = () => {
-    const router = useRouter()
+    // const router = useRouter()
 
     const { login } = useAuth({
         middleware: 'guest',

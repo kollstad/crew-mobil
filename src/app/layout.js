@@ -6,7 +6,6 @@ export default function RootLayout({
     // This will be populated with nested layouts or pages
     children,
 }) {
-
     return (
         <html lang="en">
             <Head>
