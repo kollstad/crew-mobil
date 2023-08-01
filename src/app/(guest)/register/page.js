@@ -12,37 +12,31 @@ import { useState } from 'react'
 const Register = () => {
     const { register } = useAuth({
         middleware: 'guest',
-        redirectIfAuthenticated: '/dashboard',
+        redirectIfAuthenticated: '/dashboard/profile',
     })
 
-    const [name, setName] = useState('')
+    // const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
-    const [email, setEmail] = useState('')
+    // const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [passwordConfirmation, setPasswordConfirmation] = useState('')
+    // const [passwordConfirmation, setPasswordConfirmation] = useState('')
     const [errors, setErrors] = useState([])
 
     const submitForm = event => {
         event.preventDefault()
 
         register({
-            name,
             phone,
-            email,
             password,
-            password_confirmation: passwordConfirmation,
             setErrors,
         })
     }
 
     return (
-        <AuthCard
-            logo={
-                <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
-            }>
+        <AuthCard logo={<ApplicationLogo />}>
             <form onSubmit={submitForm}>
                 {/* Name */}
-                <div className="flex flex-col items-center">
+                {/* <div className="flex flex-col items-center">
                     <Label htmlFor="name">Navn</Label>
 
                     <Input
@@ -56,7 +50,7 @@ const Register = () => {
                     />
 
                     <InputError messages={errors.name} className="mt-2" />
-                </div>
+                </div> */}
 
                 {/* Phone Number */}
                 <div className="mt-4 flex flex-col items-center">
@@ -71,11 +65,11 @@ const Register = () => {
                         required
                     />
 
-                    <InputError messages={errors.email} className="mt-2" />
+                    <InputError messages={errors.phone} className="mt-2" />
                 </div>
 
                 {/* Email Address */}
-                <div className="mt-4 flex flex-col items-center">
+                {/* <div className="mt-4 flex flex-col items-center">
                     <Label htmlFor="email">E-post</Label>
 
                     <Input
@@ -88,7 +82,7 @@ const Register = () => {
                     />
 
                     <InputError messages={errors.email} className="mt-2" />
-                </div>
+                </div> */}
 
                 {/* Password */}
                 <div className="mt-4 flex flex-col items-center">
@@ -108,7 +102,7 @@ const Register = () => {
                 </div>
 
                 {/* Confirm Password */}
-                <div className="mt-4 flex flex-col items-center">
+                {/* <div className="mt-4 flex flex-col items-center">
                     <Label htmlFor="passwordConfirmation">
                         Bekreft passord
                     </Label>
@@ -128,13 +122,13 @@ const Register = () => {
                         messages={errors.password_confirmation}
                         className="mt-2"
                     />
-                </div>
+                </div> */}
 
                 <div className="flex items-center justify-end mt-4 flex flex-col items-center">
                     <Link
                         href="/login"
                         className="underline text-sm text-gray-600 hover:text-gray-900">
-                        Already registered?
+                        Allerede registrert?
                     </Link>
 
                     <Button className="ml-4">Registrer</Button>
