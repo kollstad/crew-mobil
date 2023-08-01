@@ -6,7 +6,6 @@ import { useAuth } from '../components/hooks/auth'
 export default function Dashboard() {
     const { user } = useAuth({ middleware: 'auth' })
 
-
     return (
         <div>
             <Navigation user={user} />
