@@ -1,5 +1,5 @@
-const ApplicationLogo = () => (
-    <img src="/logo.png" className="w-20 h-20 fill-current text-gray-500" />
+const ApplicationLogo = ({ className }) => (
+    <img src="/logo.png" className={className} />
 )
 
 export default ApplicationLogo

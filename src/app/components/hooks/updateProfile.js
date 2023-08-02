@@ -1,40 +1,33 @@
+import axios from 'axios'
+
 const updateProfile = async (userId, userData) => {
     try {
-        const response = await fetch(
+        await axios.get(
             process.env.NEXT_PUBLIC_BACKEND_URL + '/sanctum/csrf-cookie',
             {
-                method: 'GET',
-                credentials: 'include', // Include credentials (cookies) in the request
+                withCredentials: true,
             },
         )
 
-        if (!response.ok) {
-            console.error('An error occurred while fetching CSRF token')
-            return
-        }
-
-        // Now proceed with the PUT request
-        const updateResponse = await fetch(
+        const updateResponse = await axios.put(
             process.env.NEXT_PUBLIC_BACKEND_URL + `/api/users/${userId}`,
+            userData,
             {
-                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Set any other necessary headers here, like authentication tokens or cookies
                 },
-                body: JSON.stringify(userData),
-                credentials: 'include', // Include credentials (cookies) in the request
+                withCredentials: true,
             },
         )
 
-        if (!updateResponse.ok) {
+        if (!updateResponse.data) {
             console.error('An error occurred while updating the user')
-            return
+            return false
         }
 
-        // const updatedUser = await response.json()
-        // console.log(updatedUser)
-        // Gjør noe med den oppdaterte brukeren her (Do something with the updated user here)
+        return true
+
+        // Handle the response data if needed
     } catch (error) {
         console.error('An error occurred:', error)
     }
