@@ -67,7 +67,7 @@ const ProfilePage = () => {
                 setProfileUpdated(false)
             }, 3000)
         } else {
-            error('Det skjedde en feil ved oppdatering')
+            alert('Det skjedde en feil ved oppdatering')
         }
     }
 
