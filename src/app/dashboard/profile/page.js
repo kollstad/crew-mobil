@@ -45,14 +45,10 @@ const ProfilePage = () => {
     }
     useEffect(() => {
         fetchClubs()
-        console.log(clubs)
     }, [])
 
     const submitForm = event => {
         event.preventDefault()
-        setClub_id(2)
-
-        // console.log(firstname, lastname, phone, email)
 
         const updateSuccess = updateProfile(user?.id, {
             firstname,
@@ -74,6 +70,9 @@ const ProfilePage = () => {
             error('Det skjedde en feil ved oppdatering')
         }
     }
+
+    // Lagring av valgt data i local storage så det ikke forsvinner ved refresh
+    // Function to save form data in localStorage
 
     return (
         <>
@@ -192,11 +191,10 @@ const ProfilePage = () => {
                         <select
                             value={club_id}
                             id="club_id"
-                            className=" w-60 h-5"
+                            className=" w-60 h-10"
                             onChange={event => setClub_id(event.target.value)}>
-                            <option value="0">Velg klubb</option>
                             {clubs?.map(club => (
-                                <option value={club.id} key={club.id}>
+                                <option value={String(club.id)} key={club.id}>
                                     {club.club_name}
                                 </option>
                             ))}

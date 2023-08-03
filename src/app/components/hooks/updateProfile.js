@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const updateProfile = async (userId, userData) => {
     try {
-        await axios.get(
+       await axios.get(
             process.env.NEXT_PUBLIC_BACKEND_URL + '/sanctum/csrf-cookie',
             {
                 withCredentials: true,

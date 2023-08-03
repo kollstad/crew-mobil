@@ -21,7 +21,7 @@ export default function RootLayout({
 
 export const metadata = {
     manifest: '/manifest.json',
-    themeColor: '#0070f3',
+    themeColor: '#000000',
     viewport: {
         initialScale: 1,
         viewportFit: 'cover',
