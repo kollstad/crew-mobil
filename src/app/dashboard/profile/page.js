@@ -10,12 +10,18 @@ import Navigation from '@/app/components/breeze-next/Navigation'
 import fetchData from '@/app/components/hooks/fetchData'
 import { useEffect } from 'react'
 import Image from 'next/image'
+import FormData from 'form-data'
+import axios from '@/app/components/lib/axios'
 
 const ProfilePage = () => {
-    // const handleFileInputChange = event => {
-    //     const file = event.target.files[0]
-    //     setUserImage(file)
-    // }
+    // handle file change
+    const handleFileInputChange = event => {
+        const file = event.target.files[0]
+        setUserImageFile(file)
+        setUserImageUrl(URL.createObjectURL(event.target.files[0]))
+    }
+
+    const [userImageFile, setUserImageFile] = useState(null)
 
     // bruker
     const { user } = useAuth({ middleware: 'auth' })
@@ -27,8 +33,9 @@ const ProfilePage = () => {
     const [birth, setBirth] = useState(user?.birth)
     const [zip, setZip] = useState(user?.zip)
     const [club_id, setClub_id] = useState(user?.club_id)
-    // const [userImage, setUserImage] = useState(user?.user_image)
     const [errors, setErrors] = useState([])
+    const [user_image, setUser_image] = useState(user?.user_image)
+    const [user_id] = useState(user?.id)
 
     const [profileUpdated, setProfileUpdated] = useState(false)
 
@@ -47,19 +54,54 @@ const ProfilePage = () => {
         fetchClubs()
     }, [])
 
-    const submitForm = event => {
-        event.preventDefault()
+    // submit form
 
-        const updateSuccess = updateProfile(user?.id, {
-            firstname,
-            lastname,
-            phone,
-            email,
-            birth,
-            zip,
-            club_id,
-            setErrors,
-        })
+    const submitForm = async event => {
+        event.preventDefault()
+        const formData = new FormData()
+
+        // if (userImageFile) {
+        //     formData.append('file', userImageFile)
+        // }
+
+        //     try {
+        //         const uploadResponse = await axios.post(
+        //             process.env.NEXT_PUBLIC_BACKEND_URL + '/api/files',
+        //             formData,
+        //         )
+
+        //         if (uploadResponse) {
+        //             setUser_image(uploadResponse.data)
+        //             console.log(uploadResponse.data)
+        //         }
+        //     } catch (error) {
+        //         console.error('Feil ved opplasting av bilde: ', error)
+        //     }
+        // }
+
+        formData.append('_method', 'put')
+        formData.append('firstname', firstname)
+        formData.append('lastname', lastname)
+        formData.append('user_image', user_image)
+        formData.append('userImageFile', userImageFile)
+        formData.append('phone', phone)
+        formData.append('email', email)
+        formData.append('birth', birth)
+        formData.append('zip', zip)
+        formData.append('club_id', club_id)
+
+        const updateSuccess = await axios.post(
+            process.env.NEXT_PUBLIC_BACKEND_URL + `/api/users/${user_id}`,
+            formData,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+            },
+        )
+
+        console.log(updateSuccess.data)
 
         if (updateSuccess) {
             setProfileUpdated(true)
@@ -71,7 +113,19 @@ const ProfilePage = () => {
         }
     }
 
-    const defaultProfile = '/profile_default.jpg'
+    const [userImageUrl, setUserImageUrl] = useState('/profile_default.jpg')
+
+    useEffect(() => {
+        console.log(user_image)
+        console.log(
+            process.env.NEXT_PUBLIC_BACKEND_URL + '/api/files/' + user_image,
+        )
+        if (user_image) {
+            setUserImageUrl(
+                process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/' + user_image,
+            )
+        }
+    }, [user_image])
 
     return (
         <>
@@ -81,9 +135,12 @@ const ProfilePage = () => {
             <div className="flex items-center justify-center">
                 <Image
                     id="picture"
-                    src={defaultProfile}
-                    width={200}
+                    src={userImageUrl}
                     height={200}
+                    width={200}
+                    alt="profilbilde"
+                    layout="repsonsive"
+                    className="h-64 w-64"
                 />
             </div>
 
@@ -94,8 +151,7 @@ const ProfilePage = () => {
                         id="file"
                         type="file"
                         className="block mt-1 w-full"
-                        onChange=""
-                        required
+                        onChange={handleFileInputChange}
                     />
 
                     <InputError messages={errors.email} className="mt-2" />
