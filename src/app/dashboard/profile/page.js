@@ -5,7 +5,6 @@ import InputError from '@/app/components/breeze-next/InputError'
 import Label from '@/app/components/breeze-next/Label'
 import { useAuth } from '@/app/components/hooks/auth'
 import { useState } from 'react'
-import updateProfile from '@/app/components/hooks/updateProfile'
 import Navigation from '@/app/components/breeze-next/Navigation'
 import fetchData from '@/app/components/hooks/fetchData'
 import { useEffect } from 'react'
@@ -33,8 +32,8 @@ const ProfilePage = () => {
     const [birth, setBirth] = useState(user?.birth)
     const [zip, setZip] = useState(user?.zip)
     const [club_id, setClub_id] = useState(user?.club_id)
-    const [errors, setErrors] = useState([])
-    const [user_image, setUser_image] = useState(user?.user_image)
+    const [errors] = useState([])
+    const [user_image] = useState(user?.user_image)
     const [user_id] = useState(user?.id)
 
     const [profileUpdated, setProfileUpdated] = useState(false)
