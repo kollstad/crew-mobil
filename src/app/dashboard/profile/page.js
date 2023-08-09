@@ -100,8 +100,6 @@ const ProfilePage = () => {
             },
         )
 
-        console.log(updateSuccess.data)
-
         if (updateSuccess) {
             setProfileUpdated(true)
             setTimeout(() => {
@@ -115,10 +113,6 @@ const ProfilePage = () => {
     const [userImageUrl, setUserImageUrl] = useState('/profile_default.jpg')
 
     useEffect(() => {
-        console.log(user_image)
-        console.log(
-            process.env.NEXT_PUBLIC_BACKEND_URL + '/api/files/' + user_image,
-        )
         if (user_image) {
             setUserImageUrl(
                 process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/' + user_image,
@@ -138,7 +132,6 @@ const ProfilePage = () => {
                     height={200}
                     width={200}
                     alt="profilbilde"
-                    layout="repsonsive"
                     className="h-64 w-64"
                 />
             </div>
@@ -248,7 +241,7 @@ const ProfilePage = () => {
                         className="block mt-1 w-full"
                         onChange={event => setZip(event.target.value)}
                         pattern="[0-9]{4}"
-                        maxlength="4"
+                        maxLength="4"
                         placeholder="####"
                         required
                     />
