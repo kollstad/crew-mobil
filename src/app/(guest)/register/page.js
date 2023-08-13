@@ -36,7 +36,7 @@ const Register = () => {
 
     return (
         <>
-            <div className="hidden fixed top-0 sm:right-0 sm:text-right px-6 py-4 sm:block w-screen text-center">
+            <div className=" sm:top-0 sm:right-0 sm:text-right px-6 py-4 sm:block w-screen text-center">
                 {user ? (
                     <Link
                         href="/dashboard"
@@ -147,7 +147,7 @@ const Register = () => {
                         <Input
                             id="checkbox"
                             type="checkbox"
-                            className="block ml-4 mt-1 w-6"
+                            className="block ml-4 mt-1 w-4"
                             required
                             autoComplete="new-password"
                         />
@@ -181,7 +181,7 @@ const Register = () => {
                     />
                 </div> */}
 
-                    <div className="flex items-center justify-end mt-4 flex flex-col items-center">
+                    <div className="justify-end mt-4 flex flex-col items-center">
                         <Link
                             href="/login"
                             className="underline text-sm text-gray-600 hover:text-gray-900">

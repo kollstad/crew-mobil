@@ -50,7 +50,7 @@ const Login = () => {
 
     return (
         <>
-            <div className="hidden fixed top-0 sm:right-0 sm:text-right px-6 py-4 sm:block w-screen text-center">
+            <div className=" sm:top-0 sm:right-0 sm:text-right px-6 py-4 sm:block w-screen text-center">
                 {user ? (
                     <Link
                         href="/dashboard"

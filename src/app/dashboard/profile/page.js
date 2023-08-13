@@ -11,6 +11,7 @@ import { useEffect } from 'react'
 import Image from 'next/image'
 import FormData from 'form-data'
 import axios from '@/app/components/lib/axios'
+import DeleteModal from './DeleteModal'
 
 const ProfilePage = () => {
     // handle file change
@@ -25,16 +26,16 @@ const ProfilePage = () => {
     // bruker
     const { user } = useAuth({ middleware: 'auth' })
 
-    const [firstname, setFirstname] = useState(user?.firstname)
-    const [lastname, setLastname] = useState(user?.lastname)
-    const [phone, setPhone] = useState(user?.phone)
-    const [email, setEmail] = useState(user?.email)
-    const [birth, setBirth] = useState(user?.birth)
-    const [zip, setZip] = useState(user?.zip)
-    const [club_id, setClub_id] = useState(user?.club_id)
+    const [firstname, setFirstname] = useState()
+    const [lastname, setLastname] = useState()
+    const [phone, setPhone] = useState()
+    const [email, setEmail] = useState()
+    const [birth, setBirth] = useState()
+    const [zip, setZip] = useState()
+    const [club_id, setClub_id] = useState()
     const [errors] = useState([])
-    const [user_image] = useState(user?.user_image)
-    const [user_id] = useState(user?.id)
+    const [user_image, setUser_image] = useState()
+    const [user_id, setUser_id] = useState()
 
     const [profileUpdated, setProfileUpdated] = useState(false)
 
@@ -53,30 +54,25 @@ const ProfilePage = () => {
         fetchClubs()
     }, [])
 
+    useEffect(() => {
+        if (user) {
+            setFirstname(user.firstname)
+            setLastname(user.lastname)
+            setPhone(user.phone)
+            setEmail(user.email)
+            setBirth(user.birth)
+            setZip(user.zip)
+            setClub_id(user.club_id)
+            setUser_image(user.user_image)
+            setUser_id(user.user_id)
+        }
+    }, [user])
+
     // submit form
 
     const submitForm = async event => {
         event.preventDefault()
         const formData = new FormData()
-
-        // if (userImageFile) {
-        //     formData.append('file', userImageFile)
-        // }
-
-        //     try {
-        //         const uploadResponse = await axios.post(
-        //             process.env.NEXT_PUBLIC_BACKEND_URL + '/api/files',
-        //             formData,
-        //         )
-
-        //         if (uploadResponse) {
-        //             setUser_image(uploadResponse.data)
-        //             console.log(uploadResponse.data)
-        //         }
-        //     } catch (error) {
-        //         console.error('Feil ved opplasting av bilde: ', error)
-        //     }
-        // }
 
         formData.append('_method', 'put')
         formData.append('firstname', firstname)
@@ -120,8 +116,17 @@ const ProfilePage = () => {
         }
     }, [user_image])
 
+    // slett bruker
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const handleDelete = () => {}
+
+    const performDelete = () => {}
+
     return (
         <>
+            {/* <DeleteModal
+                isModalOpen={isModalOpen}
+                setIsModalOpen={setIsModalOpen}></DeleteModal> */}
             <Navigation user={user} />
             <h1 className="text-center text-3xl">Profil</h1>
             <Label htmlFor="picture">Bilde</Label>
@@ -135,7 +140,6 @@ const ProfilePage = () => {
                     className="h-64 w-64"
                 />
             </div>
-
             <form onSubmit={submitForm} encType="multipart/form-data">
                 {/* Picture */}
                 <div className="mt-4 flex flex-col items-center">
@@ -268,10 +272,21 @@ const ProfilePage = () => {
                     <Button className="ml-4">Lagre</Button>
                 </div>
             </form>
-
             {profileUpdated && (
                 <h1 className="text-center">Profilen din ble oppdatert!</h1>
             )}
+            <br />
+            <br />
+            <div className="justify-end mt-4 flex flex-col items-center">
+                <button
+                    id="btnDelete"
+                    className="ml-4"
+                    onClick={() => {
+                        setIsModalOpen(true)
+                    }}>
+                    Slett profilen min
+                </button>
+            </div>
         </>
     )
 }
