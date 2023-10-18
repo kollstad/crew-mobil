@@ -64,7 +64,7 @@ const ProfilePage = () => {
             setZip(user.zip)
             setClub_id(user.club_id)
             setUser_image(user.user_image)
-            setUser_id(user.user_id)
+            setUser_id(user.id)
         }
     }, [user])
 
