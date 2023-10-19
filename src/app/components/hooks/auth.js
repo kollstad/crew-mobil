@@ -97,6 +97,12 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
         window.location.pathname = '/login'
     }
 
+    const deleteProfile = async user_id => {
+        axios.delete(`/api/users/${user_id}`).then(() => mutate())
+
+        window.location.pathname = '/login'
+    }
+
     useEffect(() => {
         if (middleware === 'guest' && redirectIfAuthenticated && user)
             router.push(redirectIfAuthenticated)
@@ -116,5 +122,6 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
         resetPassword,
         resendEmailVerification,
         logout,
+        deleteProfile,
     }
 }

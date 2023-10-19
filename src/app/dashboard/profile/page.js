@@ -117,16 +117,21 @@ const ProfilePage = () => {
     }, [user_image])
 
     // slett bruker
+    const { deleteProfile } = useAuth()
+
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const handleDelete = () => {}
+    const handleDelete = () => {
+        deleteProfile(user_id)
+    }
 
     const performDelete = () => {}
 
     return (
         <>
-            {/* <DeleteModal
+            <DeleteModal
                 isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}></DeleteModal> */}
+                setIsModalOpen={setIsModalOpen}
+                deleteProfile={handleDelete}></DeleteModal>
             <Navigation user={user} />
             <h1 className="text-center text-3xl">Profil</h1>
             <Label htmlFor="picture">Bilde</Label>
