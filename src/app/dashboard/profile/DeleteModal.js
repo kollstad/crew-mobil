@@ -1,9 +1,6 @@
 import ReactModal from 'react-modal'
-import { useState } from 'react'
 
 const DeleteModal = props => {
-    const handleDeleteConfirm = () => {}
-
     return (
         <ReactModal
             isOpen={props.isModalOpen}

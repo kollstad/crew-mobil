@@ -36,6 +36,7 @@ const ProfilePage = () => {
     const [errors] = useState([])
     const [user_image, setUser_image] = useState()
     const [user_id, setUser_id] = useState()
+    const [publicProfile, setPublicProfile] = useState()
 
     const [profileUpdated, setProfileUpdated] = useState(false)
 
@@ -65,6 +66,7 @@ const ProfilePage = () => {
             setClub_id(user.club_id)
             setUser_image(user.user_image)
             setUser_id(user.id)
+            setPublicProfile(user.public)
         }
     }, [user])
 
@@ -84,6 +86,7 @@ const ProfilePage = () => {
         formData.append('birth', birth)
         formData.append('zip', zip)
         formData.append('club_id', club_id)
+        formData.append('public', publicProfile ? 1 : 0)
 
         const updateSuccess = await axios.post(
             process.env.NEXT_PUBLIC_BACKEND_URL + `/api/users/${user_id}`,
@@ -123,8 +126,6 @@ const ProfilePage = () => {
     const handleDelete = () => {
         deleteProfile(user_id)
     }
-
-    const performDelete = () => {}
 
     return (
         <>
@@ -273,8 +274,32 @@ const ProfilePage = () => {
                     </select>
                 </div>
 
+                {/* Postkode */}
+                <div className="mt-4 flex justify-center items-center flex-col">
+                    <Label>
+                        Kryss av dersom du vil at organisasjoner skal kunne søke
+                        deg opp:
+                    </Label>
+
+                    <Input
+                        id="public"
+                        type="checkbox"
+                        checked={publicProfile}
+                        className="block mt-1 w-10 h-10"
+                        onChange={() => {
+                            setPublicProfile(!publicProfile)
+                        }}
+                        pattern="[0-9]{4}"
+                        maxLength="4"
+                        placeholder="####"
+                        required
+                    />
+
+                    <InputError messages={errors.zip} className="mt-2" />
+                </div>
+
                 <div className="justify-end mt-4 flex flex-col items-center">
-                    <Button className="ml-4">Lagre</Button>
+                    <Button>Lagre</Button>
                 </div>
             </form>
             {profileUpdated && (
@@ -285,13 +310,16 @@ const ProfilePage = () => {
             <div className="justify-end mt-4 flex flex-col items-center">
                 <button
                     id="btnDelete"
-                    className="ml-4"
+                    className=" underline"
                     onClick={() => {
                         setIsModalOpen(true)
                     }}>
                     Slett profilen min
                 </button>
             </div>
+            <br></br>
+            <br></br>
+            <br></br>
         </>
     )
 }
